@@ -6,21 +6,20 @@ import util
 import re
 
 # TODO: fix this object display comment formatting
-# ["Company Name", "_No response_", "Internship Title", "_No response_", "Link to Internship Posting", "example.com/link/to/posting", "Location", "San Franciso, CA | Austin, TX | Remote"]
+# ["Company Name", "_No response_", "job Title", "_No response_", "Link to job Posting", "example.com/link/to/posting", "Location", "San Franciso, CA | Austin, TX | Remote"]
 LINES = {
     "url": 1,
     "company_name": 3,
     "title": 5,
     "locations": 7,
     "season": 9,
-    "sponsorship": 11,
     "active": 13,
     "email": 15,
     "email_is_edit": 17
 }
 
 # lines that require special handling
-SPECIAL_LINES = set(["url", "locations", "sponsorship", "active", "email", "email_is_edit"])
+SPECIAL_LINES = set(["url", "locations", "active", "email", "email_is_edit"])
 
 def add_https_to_url(url):
     if not url.startswith(("http://", "https://")):
@@ -30,7 +29,6 @@ def add_https_to_url(url):
 
 def getData(body, is_edit, username):
     lines = [text.strip("# ") for text in re.split('[\n\r]+', body)]
-    
     data = {"date_updated": int(datetime.now().timestamp())}
 
     # url handling
@@ -40,13 +38,6 @@ def getData(body, is_edit, username):
     # location handling
     if "no response" not in lines[ LINES["locations"] ].lower():
         data["locations"] = [line.strip() for line in lines[ LINES["locations"] ].split("|")]
-
-    # sponsorship handling
-    if "no response" not in lines[ LINES["sponsorship"] ].lower():
-        data["sponsorship"] = "Other"
-        for option in ["Offers Sponsorship", "Does Not Offer Sponsorship", "U.S. Citizenship is Required"]:
-            if option in lines[ LINES["sponsorship"] ]:
-                data["sponsorship"] = option
 
     # active handling
     if "none" not in lines[ LINES["active"] ].lower():
@@ -81,13 +72,13 @@ def main():
         event_data = json.load(f)
 
 
-    # CHECK IF NEW OR OLD INTERNSHIP
+    # CHECK IF NEW OR OLD job
 
-    new_internship = "new_internship" in [label["name"] for label in event_data["issue"]["labels"]]
-    edit_internship = "edit_internship" in [label["name"] for label in event_data["issue"]["labels"]]
+    new_job = "new_job" in [label["name"] for label in event_data["issue"]["labels"]]
+    edit_job = "edit_job" in [label["name"] for label in event_data["issue"]["labels"]]
 
-    if not new_internship and not edit_internship:
-        util.fail("Only new_internship and edit_internship issues can be approved")
+    if not new_job and not edit_job:
+        util.fail("Only new_job and edit_job issues can be approved")
 
 
     # GET DATA FROM ISSUE FORM
@@ -95,9 +86,9 @@ def main():
     issue_body = event_data['issue']['body']
     issue_user = event_data['issue']['user']['login']
 
-    data = getData(issue_body, is_edit=edit_internship, username=issue_user)
+    data = getData(issue_body, is_edit=edit_job, username=issue_user)
 
-    if new_internship:
+    if new_job:
         data["source"] = issue_user
         data["id"] = str(uuid.uuid4())
         data["date_posted"] = int(datetime.now().timestamp())
@@ -116,8 +107,7 @@ def main():
 
     def get_commit_text(listing):
         closed_text = "" if listing["active"] else "(Closed)"
-        sponsorship_text = "" if listing["sponsorship"] == "Other" else ("(" + listing["sponsorship"] + ")")
-        listing_text = (listing["title"].strip() + " at " + listing["company_name"].strip() + " " + closed_text + " " + sponsorship_text).strip()
+        listing_text = (listing["title"].strip() + " at " + listing["company_name"].strip() + " " + closed_text )
         return listing_text
 
     with open(".github/scripts/listings.json", "r") as f:
@@ -126,15 +116,15 @@ def main():
     if listing_to_update := next(
         (item for item in listings if item["url"] == data["url"]), None
     ):
-        if new_internship:
-            util.fail("This internship is already in our list. See CONTRIBUTING.md for how to edit a listing")
+        if new_job:
+            util.fail("This job is already in our list. See CONTRIBUTING.md for how to edit a listing")
         for key, value in data.items():
             listing_to_update[key] = value
 
         util.setOutput("commit_message", "updated listing: " + get_commit_text(listing_to_update))
     else:
-        if edit_internship:
-            util.fail("We could not find this internship in our list. Please double check you inserted the right url")
+        if edit_job:
+            util.fail("We could not find this job in our list. Please double check you inserted the right url")
         listings.append(data)
 
         util.setOutput("commit_message", "added listing: " + get_commit_text(data))

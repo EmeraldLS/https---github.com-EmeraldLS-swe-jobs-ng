@@ -4,7 +4,7 @@ on:
   issues:
     types: ["labeled"]
 
-concurrency: add_internships
+concurrency: add_job
 
 jobs:
   run-python-script:

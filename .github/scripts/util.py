@@ -5,7 +5,7 @@ from collections import defaultdict
 import time
 
 # Set the TZ environment variable to PST
-os.environ['TZ'] = 'America/Los_Angeles'
+os.environ['TZ'] = 'Nigeria/Lagos'
 time.tzset()
 
 # keeping this stuff on purpose to give simplify more monies
@@ -31,13 +31,6 @@ def getLocations(listing):
         return locations
     num = str(len(listing["locations"])) + " locations"
     return f'<details><summary>**{num}**</summary>{locations}</details>'
-
-def getSponsorship(listing):
-    if listing["sponsorship"] == "Does Not Offer Sponsorship":
-        return " 🛂"
-    elif listing["sponsorship"] == "U.S. Citizenship is Required":
-        return " 🇺🇸"
-    return ""
 
 def getLink(listing):
     if not listing["active"]:
@@ -70,7 +63,7 @@ def create_md_table(listings):
         company_url = listing["company_url"]
         company = f"**[{listing['company_name']}]({company_url})**" if len(company_url) > 0 else listing["company_name"]
         location = getLocations(listing)
-        position = listing["title"] + getSponsorship(listing)
+        position = listing["title"]
         link = getLink(listing)
 
         # parse listing date
@@ -153,8 +146,7 @@ def sortListings(listings):
 def checkSchema(listings):
     props = ["source", "company_name",
              "id", "title", "active", "date_updated", "is_visible",
-             "date_posted", "url", "locations", "season", "company_url",
-             "sponsorship"]
+             "date_posted", "url", "locations", "company_url"]
     for listing in listings:
         for prop in props:
             if prop not in listing:

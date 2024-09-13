@@ -1,12 +1,15 @@
-# Job Postings In Nigeria & Remote Intl inspired by Lawrence
+# Job Postings In Nigeria & Remote
 
 :warning: Please note that this repository is exclusively for job postings in Nigeria or Remote positions :earth_americas:
 
 🙏 **Contribute by submitting an [issue](https://github.com/emeraldls/swe-jobs-ng/issues/new/choose)! See the contribution guidelines [here](./CONTRIBUTING.md)!** 🙏
 
+<sub>
+	<i>Special thanks to the original creator of this codebase,  <a href="ttps://github.com/SimplifyJobs"> Simplify Jobs </a> & <a href="https://github.com/Ouckah/"> Ookah </a> . We’ve made some edits to enhance the job search experience.
+	</i>
+</sub>
 
-
-<div align="center">
+<!-- <div align="center">
 	<p>
 		<a href="https://bit.ly/ouckah">
 			<b style="color: #0073e6; font-size: 1.2em;">Looking for job applicants?</b>
@@ -21,7 +24,7 @@
 		</a>
 		<sub><i>Join the Discord to connect with fellow peers and streamline your job search.</i></sub>
 	</p>
-</div>
+</div> -->
 
 ---
 
@@ -47,20 +50,15 @@
 ## The List 🚴🏔
 
 ### Legend
- -  - Remote
- -  - Nigeria
+ - 🌎 - Remote
+ - 🇳🇬 - Nigeria
  - 🔒 - Job application is closed
-
-> For off-season internships, please see the [Off-Season README](./OFFSEASON_README.md).
-
-> For new-grad tech jobs, check out [New-Grad](https://github.com/cvrve/New-Grad).
 
 [⬇️ Jump to bottom ⬇️](https://github.com/emeraldls/swe-jobs-ng#we-love-our-contributors-%EF%B8%8F%EF%B8%8F)
 <!-- Please leave a one line gap between this and the table TABLE_START (DO NOT CHANGE THIS LINE) -->
 
 | Company | Role | Location | Application/Link | Date Posted |
 | ------- | ---- | -------- | ---------------- | ----------- |
-| Walmart | Software Engineer Intern | Bentonville, AR</br>Sunnyvale, CA | <a href="https://walmart.wd5.myworkdayjobs.com/WalmartExternal/job/Bentonville-AR/XMLNAME-2025-Summer-Intern--Software-Engineer-II_R-1977954"><img src="https://i.imgur.com/u1KNU8z.png" width="118" alt="Apply"></a> | Sep 11 |
 
 <!-- Please leave a one line gap between this and the table TABLE_END (DO NOT CHANGE THIS LINE) -->
 [⬆️ Back to Top ⬆️](https://github.com/emeraldls/swe-jobs-ng#the-list-)
