@@ -59,6 +59,7 @@
 
 | Company | Role | Location | Application/Link | Date Posted |
 | ------- | ---- | -------- | ---------------- | ----------- |
+| SIG | Software Engineering Intern | Bala Cynwyd, PA | <a href="https://careers.sig.com/job/8218/Software-Engineering-Intern-Summer-2025?utm_campaign=google_jobs_apply"><img src="https://i.imgur.com/u1KNU8z.png" width="118" alt="Apply"></a> | May 01 |
 
 <!-- Please leave a one line gap between this and the table TABLE_END (DO NOT CHANGE THIS LINE) -->
 [⬆️ Back to Top ⬆️](https://github.com/emeraldls/swe-jobs-ng#the-list-)
